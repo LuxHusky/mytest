@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mws.domain.MyUser;
 import com.mws.domain.User;
+import com.mws.domapper.DoChoiceQuestion;
 import com.mws.domapper.DoMyUser;
 import com.mws.domapper.DoUser;
 
@@ -28,6 +29,7 @@ public class MyLoginController {
 		String password = request.getParameter("password");
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		MyUser user = DoMyUser.selectUserByName(sqlSession,account);
+		int total = DoChoiceQuestion.getChoiceQuestionNum(sqlSession);
 		if(user == null){
 			resultMap.put("flag", false);
 			resultMap.put("Msg","用户不存在");
@@ -37,7 +39,7 @@ public class MyLoginController {
 				resultMap.put("Msg", "登陆成功");
 				resultMap.put("loginType",user.getLoginType());
 				resultMap.put("userInfo", user);
-				
+				resultMap.put("total", total);
 			}else{
 			resultMap.put("flag", false);
 			resultMap.put("Msg","密码输入错误");

@@ -3,11 +3,21 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_6_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.lib.spring31.MYECLIPSE_SPRING31_CORE"/>
 	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.lib.spring31.MYECLIPSE_SPRING31_Persistence"/>
 	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.lib.spring31.MYECLIPSE_SPRING31_WEB"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="F:/mybatisspring/代码/mybatis1217_2/lib/asm-3.3.1.jar"/>
+	<classpathentry kind="lib" path="F:/mybatisspring/代码/mybatis1217_2/lib/cglib-2.2.2.jar"/>
+	<classpathentry kind="lib" path="F:/mybatisspring/代码/mybatis1217_2/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="F:/mybatisspring/代码/mybatis1217_2/lib/javassist-3.17.1-GA.jar"/>
+	<classpathentry kind="lib" path="F:/mybatisspring/代码/mybatis1217_2/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="F:/mybatisspring/代码/mybatis1217_2/lib/log4j-api-2.0-beta9.jar"/>
+	<classpathentry kind="lib" path="F:/mybatisspring/代码/mybatis1217_2/lib/log4j-core-2.0-beta9.jar"/>
+	<classpathentry kind="lib" path="F:/mybatisspring/代码/mybatis1217_2/lib/mybatis-3.2.3.jar"/>
+	<classpathentry kind="lib" path="F:/mybatisspring/代码/mybatis1217_2/lib/mysql-connector-java-5.1.7-bin.jar"/>
+	<classpathentry kind="lib" path="F:/mybatisspring/代码/mybatis1217_2/lib/slf4j-api-1.7.5.jar"/>
+	<classpathentry kind="lib" path="F:/mybatisspring/代码/mybatis1217_2/lib/slf4j-log4j12-1.7.5.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

@@ -71,10 +71,9 @@ h1 {
 						<div class="pull-right mine-con">
 							姓名:
 							<p id="testname"></p>
-							性别:
-							<p></p>
-							准考证号:
-							<p></p>
+							工号:
+							<p id="userid"></p>
+							
 						</div>
 					</div>
 					<div>
@@ -146,9 +145,13 @@ h1 {
 	</div>
 </body>
 <script type="text/javascript">
+	//获取登录信息
 	var name = $.cookie('name');
-
+	var userid =$.cookie('userid');
+	var f=$.cookie('total');
 	$("#testname").html(name);
+	$("#userid").html(userid);
+	
 
 	$(function() {
 		$("#myback").click(back);
@@ -166,7 +169,7 @@ h1 {
 		$("#myback").show();
 		$("#mybegin").hide();
 		//var time_run=setInterval("getTime()",1000);
-		var flag = 2;
+		var flag = 1;
 
 		$.ajax({
 
@@ -253,15 +256,23 @@ $(function(){
 	}
 
 	//上一题
-	function back() {
-		var flag = 1;
+	var num=2;
 
+	function back() {
+		
+		if(num<1){
+			alert("已经是第一题了");
+			$("#myback").hide();
+			
+		}else{
+			$("#mynext").show();
+			num--;
 		$.ajax({
 
 			url : "http://localhost:8080/MyWorkServer/getChoice.do",
 			type : "post",
 			data : {
-				"flag" : flag
+				"flag" : num
 			},
 			dataType : "json",
 			success : function(resultMap) {
@@ -270,7 +281,7 @@ $(function(){
 				var answerB = resultMap.question.answerB;
 				var answerC = resultMap.question.answerC;
 				var answerD = resultMap.question.answerD;
-
+					
 				$("#context").html(qcontext);
 				$("#answerA").html(answerA);
 				$("#answerB").html(answerB);
@@ -279,36 +290,44 @@ $(function(){
 
 			}
 		});
-
+		}
 	}
 	//下一题
 	function next() {
-		var flag = 0;
-
-		var option = $("input[name='optionsRadios']:checked").val();
+		
+		if(num>f){
+			alert("已经是最后一道题了");
+			$("#mynext").hide();
+		}else
+		{	
+			$("#myback").show();
+			++num;
+		//var option = $("input[name='optionsRadios']:checked").val();
 		$.ajax({
 
 			url : "http://localhost:8080/MyWorkServer/getChoice.do",
 			type : "post",
 			data : {
-				"flag" : flag
+				"flag" : num
 			},
 			dataType : "json",
 			success : function(resultMap) {
+			if(resultMap.flag == true){
 				var qcontext = resultMap.question.qcontext;
 				var answerA = resultMap.question.answerA;
 				var answerB = resultMap.question.answerB;
 				var answerC = resultMap.question.answerC;
 				var answerD = resultMap.question.answerD;
-
+			
 				$("#context").html(qcontext);
 				$("#answerA").html(answerA);
 				$("#answerB").html(answerB);
 				$("#answerC").html(answerC);
 				$("#answerD").html(answerD);
-
+				}
 			}
 		});
+		}
 	}
 </script>
 </html>

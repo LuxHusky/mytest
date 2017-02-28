@@ -21,15 +21,17 @@ public class ChoiceQuestionController {
 	@RequestMapping(value = "/getChoice.do")
 	public Map<String, Object> UserLogin(HttpServletRequest request,
 			HttpServletResponse response){
-		String flag=request.getParameter("flag");
+		int flag=Integer.parseInt(request.getParameter("flag"));
 		ChoiceQuestion question=DoChoiceQuestion.doGetChoiceQuestion(sqlSession, flag);		
+		int total = DoChoiceQuestion.getChoiceQuestionNum(sqlSession);
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		if(question == null){
 			resultMap.put("flag",false);
-			resultMap.put("Msg","系统错误");
+			resultMap.put("Msg","错误操作");
 		}else{
 			resultMap.put("flag",true);
 			resultMap.put("question", question);
+			resultMap.put("total", total);
 		}
 		return resultMap;
 		

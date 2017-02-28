@@ -105,6 +105,9 @@ h1 {
 						} else {
 							if (resultMap.loginType == "考生") {
 							$.cookie('name', resultMap.userInfo.name);
+							$.cookie('userid', resultMap.userInfo.id);
+							$.cookie('total',resultMap.total);
+							
 								window.location.href = "test.jsp";
 							} else {
 								window.location.href = "index.jsp";

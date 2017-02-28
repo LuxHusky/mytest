@@ -14,4 +14,10 @@ public class testChoice {
 		ChoiceQuestion c=DoChoiceQuestion.getChoiceQuestion(sqlSession ,1);
 		System.out.println(c.toString());
 	}
+	@Test
+	public void testGetchocieNum(){
+		SqlSession sqlSession = InitSqlSession.getSqlSession();
+		int num = DoChoiceQuestion.getChoiceQuestionNum(sqlSession);
+		System.out.println(num);
+	}
 }
