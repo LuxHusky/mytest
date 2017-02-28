@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mws.mapping.userMapper">
+
+
+	<insert id="insertUser" parameterType="com.mws.domain.User">
+		insert into
+		user(userID,userSysID,userName,userPassWord)
+		values(#{userID},#{userSysID},#{userName},#{userPassWord})
+	</insert>
+
+	<delete id="deleteUser" parameterType="long">
+		delete from user
+		where
+		userID=#{userID}
+	</delete>
+
+	<update id="updateUser" parameterType="com.mws.domain.User">
+		update user
+		set
+		userSysID=#{userSysID},userName=#{userName},userPassWord=#{userPassWord}
+		where userID=#{userID}
+	</update>
+
+	<select id="selectUserByName" parameterType="String"
+		resultType="com.mws.domain.User">
+		select * from
+		user
+		where userName = #{userName}
+	</select>
+
+	<select id="selectUserBySysID" parameterType="Integer"
+		resultType="com.mws.domain.User">
+		select * from
+		user
+		where userSysID=#{userSysID}
+	</select>
+
+	<select id="selectUser" resultType="com.mws.domain.User">
+		select * from user
+	</select>
+
+</mapper>

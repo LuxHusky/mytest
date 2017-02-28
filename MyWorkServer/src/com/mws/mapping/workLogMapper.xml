@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mws.mapping.workLogMapper">
+	<select id="selectWorkLog" parameterType="Long"
+		resultType="com.mws.domain.WorkLog">
+		select * from worklog
+		where userID=#{userID}
+	</select>
+
+	<select id="selectWorkLogByTime" parameterType="java.util.Map"
+		resultType="com.mws.domain.WorkLog">
+		select * from worklog
+		where userID=#{userID}
+		and longTime
+		between #{minLongTime} and #{maxLongTime}
+	</select>
+
+	<select id="selectWorkLogByType" parameterType="java.util.Map"
+		resultType="com.mws.domain.WorkLog">
+		select * from worklog
+		where userID=#{userID} and
+		workTypeID=#{workTypeID}
+		and longTime between
+		#{minLongTime} and
+		#{maxLongTime}
+	</select>
+
+	<insert id="insertWorkLog" parameterType="com.mws.domain.WorkLog">
+		insert into
+		worklog(workLogID,userID,workTypeID,longTime,workContent)
+		values(#{workLogID},#{userID},#{workTypeID},#{longTime},#{workContent})
+	</insert>
+
+	<update id="updateWorkLog" parameterType="com.mws.domain.WorkLog">
+		update worklog
+		set
+		workTypeID=#{workTypeID},longTime=#{longTime},workContent=#{workContent}
+		where workLogID=#{workLogID}
+	</update>
+
+	<delete id="deleteWorkLog" parameterType="Long">
+		delete from worklog
+		where workLogID=#{workLogID}
+	</delete>
+	<delete id="deleteWorkLogByType" parameterType="java.util.Map">
+		delete from worklog
+		where userID=#{userID} and
+		workTypeID=#{workTypeID}
+	</delete>
+</mapper>

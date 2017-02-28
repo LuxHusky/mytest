@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mws.mapping.workTypeMapper">
+	<insert id="insertWorkType" parameterType="com.mws.domain.WorkType">
+		insert into
+		worktype(workTypeID,workTypeName)
+		values(#{workTypeID},#{workTypeName})
+	</insert>
+
+	<select id="selectWorkType" resultType="com.mws.domain.WorkType">
+		select * from worktype
+	</select>
+
+	<select id="selectWorkTypeByID" parameterType="Long"
+		resultType="com.mws.domain.WorkType">
+		select * from worktype
+		where workTypeID=#{workTypeID}
+	</select>
+
+	<select id="selectWorkTypeByName" parameterType="String"
+		resultType="com.mws.domain.WorkType">
+		select * from worktype
+		where workTypeName=#{workTypeName}
+	</select>
+
+	<update id="updateWorkType" parameterType="com.mws.domain.WorkType">
+		update worktype
+		set
+		workTypeName=#{workTypeName}
+		where workTypeID=#{workTypeID}
+	</update>
+
+	<delete id="deleteWorkType" parameterType="Long">
+		delete from worktype
+		where workTypeID=#{workTypeID}
+	</delete>
+
+</mapper>

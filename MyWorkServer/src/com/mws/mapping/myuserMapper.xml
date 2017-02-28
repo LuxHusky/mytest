@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mws.mapping.myuserMapper">
+	<select id="selectUserByName" parameterType="String"
+		resultType="com.mws.domain.MyUser">
+		select * from
+		puser
+		where account = #{account}
+	</select>
+	<insert id="registUser" parameterType="com.mws.domain.MyUser">
+		insert into
+		puser(account,password,name,id,loginType)
+		values(#{account},#{password},#{name},#{id},#{loginType})
+	</insert>
+	<select id="selectUserByID" parameterType="Integer"
+		resultType="com.mws.domain.MyUser">
+		select *from
+		puser
+		where id = #{id}
+
+	</select>
+	<delete id="deletUserByID" parameterType="Integer">
+		delete from
+		puser where
+		id=#{id}
+	</delete>
+	<select id="selectAll" resultType="com.mws.domain.MyUser">
+	 	select *from
+	 	puser
+	</select>
+
+
+</mapper>
