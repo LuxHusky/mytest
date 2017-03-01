@@ -73,15 +73,29 @@ h1 {
 							<p id="testname"></p>
 							工号:
 							<p id="userid"></p>
-							
+
 						</div>
 					</div>
 					<div>
-						考试倒计时：
-  	<strong id="hour_show">0时</strong>
-    <strong id="minute_show">0分</strong>
-    <strong id="second_show">0秒</strong>
+						考试倒计时： <strong id="hour_show">0时</strong> <strong id="minute_show">0分</strong>
+						<strong id="second_show">0秒</strong>
 					</div>
+					<div class="number">
+						<h4>题号</h4>
+						<button id="showf" type="button" class="btn btn-success">作答了的</button>
+
+						<button type="button" class="btn btn-default">还没答的</button>
+
+						<div>
+							<table id="myfinishi" style="display: none;">
+								<tr>
+									<td>1</td>
+									<td>2</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+
 				</div>
 
 			</div>
@@ -129,9 +143,11 @@ h1 {
 					<!-- 题量显示 -->
 					<div class="number">
 						<h4>题号</h4>
-						<button type="button" class="btn btn-success">作答了的</button>
-						<button type="button" class="btn btn-success">2</button>
-						<button type="button" class="btn btn-default">还没答的</button>
+
+						<button type="button" class="btn btn-success">
+							<span id="cqnum">0</span>
+						</button>
+
 					</div>
 					<!-- 交卷按钮 -->
 				</div>
@@ -147,13 +163,13 @@ h1 {
 <script type="text/javascript">
 	//获取登录信息
 	var name = $.cookie('name');
-	var userid =$.cookie('userid');
-	var f=$.cookie('total');
+	var userid = $.cookie('userid');
+	var f = $.cookie('total');
 	$("#testname").html(name);
 	$("#userid").html(userid);
-	
 
 	$(function() {
+		$("#showf").click(showf);
 		$("#myback").click(back);
 		$("#mynext").click(next);
 		$("#mybegin").click(mybegin);
@@ -161,7 +177,10 @@ h1 {
 		startTime();
 
 	})
-	//计时器待写
+	//显示已经答完的题目
+	function showf() {
+		$("#myfinishi").toggle();
+	}
 
 	//开始按钮
 	function mybegin() {
@@ -173,7 +192,7 @@ h1 {
 
 		$.ajax({
 
-			url : "http://localhost:8080/MyWorkServer/getChoice.do",
+			url : "http://localhost:8080/MyWorkServer/getfChoice.do",
 			type : "post",
 			data : {
 				"flag" : flag
@@ -185,42 +204,44 @@ h1 {
 				var answerB = resultMap.question.answerB;
 				var answerC = resultMap.question.answerC;
 				var answerD = resultMap.question.answerD;
-
+				var qid = resultMap.question.qid;
 				$("#context").html(qcontext);
 				$("#answerA").html(answerA);
 				$("#answerB").html(answerB);
 				$("#answerC").html(answerC);
 				$("#answerD").html(answerD);
+				$("#cqnum").html(qid);
 
 			}
 		});
 	}
 	//倒计时
-	var intDiff = parseInt(60*30);//倒计时总秒数量
-function timer(intDiff){
-    window.setInterval(function(){
-    var day=0,
-        hour=0,
-        minute=0,
-        second=0;//时间默认值        
-    if(intDiff > 0){
-        day = Math.floor(intDiff / (60 * 60 * 24));
-        hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
-        minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
-        second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
-    }
-    if (minute <= 9) minute = '0' + minute;
-    if (second <= 9) second = '0' + second;
-    $('#day_show').html(day+"天");
-    $('#hour_show').html('<s id="h"></s>'+hour+'时');
-    $('#minute_show').html('<s></s>'+minute+'分');
-    $('#second_show').html('<s></s>'+second+'秒');
-    intDiff--;
-    }, 1000);
-} 
-$(function(){
-    timer(intDiff);
-}); 
+	var intDiff = parseInt(60 * 30);//倒计时总秒数量
+	function timer(intDiff) {
+		window.setInterval(function() {
+			var day = 0, hour = 0, minute = 0, second = 0;//时间默认值        
+			if (intDiff > 0) {
+				day = Math.floor(intDiff / (60 * 60 * 24));
+				hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+				minute = Math.floor(intDiff / 60) - (day * 24 * 60)
+						- (hour * 60);
+				second = Math.floor(intDiff) - (day * 24 * 60 * 60)
+						- (hour * 60 * 60) - (minute * 60);
+			}
+			if (minute <= 9)
+				minute = '0' + minute;
+			if (second <= 9)
+				second = '0' + second;
+			$('#day_show').html(day + "天");
+			$('#hour_show').html('<s id="h"></s>' + hour + '时');
+			$('#minute_show').html('<s></s>' + minute + '分');
+			$('#second_show').html('<s></s>' + second + '秒');
+			intDiff--;
+		}, 1000);
+	}
+	$(function() {
+		timer(intDiff);
+	});
 	//获取当前时间
 
 	function startTime() {
@@ -256,77 +277,78 @@ $(function(){
 	}
 
 	//上一题
-	var num=2;
+	var num = 1;
 
 	function back() {
-		
-		if(num<1){
+
+		if (num < 1) {
 			alert("已经是第一题了");
 			$("#myback").hide();
-			
-		}else{
+
+		} else {
 			$("#mynext").show();
 			num--;
-		$.ajax({
+			$.ajax({
 
-			url : "http://localhost:8080/MyWorkServer/getChoice.do",
-			type : "post",
-			data : {
-				"flag" : num
-			},
-			dataType : "json",
-			success : function(resultMap) {
-				var qcontext = resultMap.question.qcontext;
-				var answerA = resultMap.question.answerA;
-				var answerB = resultMap.question.answerB;
-				var answerC = resultMap.question.answerC;
-				var answerD = resultMap.question.answerD;
-					
-				$("#context").html(qcontext);
-				$("#answerA").html(answerA);
-				$("#answerB").html(answerB);
-				$("#answerC").html(answerC);
-				$("#answerD").html(answerD);
-
-			}
-		});
+				url : "http://localhost:8080/MyWorkServer/getChoice.do",
+				type : "post",
+				data : {
+					"flag" : num
+				},
+				dataType : "json",
+				success : function(resultMap) {
+					var qcontext = resultMap.question.qcontext;
+					var answerA = resultMap.question.answerA;
+					var answerB = resultMap.question.answerB;
+					var answerC = resultMap.question.answerC;
+					var answerD = resultMap.question.answerD;
+					var qid = resultMap.question.qid;
+					$("#context").html(qcontext);
+					$("#answerA").html(answerA);
+					$("#answerB").html(answerB);
+					$("#answerC").html(answerC);
+					$("#answerD").html(answerD);
+					$("#cqnum").html(qid);
+				}
+			});
 		}
 	}
 	//下一题
 	function next() {
-		
-		if(num>f){
+
+		if (num > f) {
 			alert("已经是最后一道题了");
 			$("#mynext").hide();
-		}else
-		{	
+		} else {
 			$("#myback").show();
-			++num;
-		//var option = $("input[name='optionsRadios']:checked").val();
-		$.ajax({
+			num++;
+			var option = $("input[name='optionsRadios']:checked").val();
+			$.ajax({
 
-			url : "http://localhost:8080/MyWorkServer/getChoice.do",
-			type : "post",
-			data : {
-				"flag" : num
-			},
-			dataType : "json",
-			success : function(resultMap) {
-			if(resultMap.flag == true){
-				var qcontext = resultMap.question.qcontext;
-				var answerA = resultMap.question.answerA;
-				var answerB = resultMap.question.answerB;
-				var answerC = resultMap.question.answerC;
-				var answerD = resultMap.question.answerD;
-			
-				$("#context").html(qcontext);
-				$("#answerA").html(answerA);
-				$("#answerB").html(answerB);
-				$("#answerC").html(answerC);
-				$("#answerD").html(answerD);
+				url : "http://localhost:8080/MyWorkServer/getChoice.do",
+				type : "post",
+				data : {
+					"flag" : num,"answer":option,"userid":userid
+				},
+				dataType : "json",
+				success : function(resultMap) {
+					if (resultMap.flag == true) {
+						var qcontext = resultMap.question.qcontext;
+						var answerA = resultMap.question.answerA;
+						var answerB = resultMap.question.answerB;
+						var answerC = resultMap.question.answerC;
+						var answerD = resultMap.question.answerD;
+						var qid = resultMap.question.qid;
+						$("#context").html(qcontext);
+						$("#answerA").html(answerA);
+						$("#answerB").html(answerB);
+						$("#answerC").html(answerC);
+						$("#answerD").html(answerD);
+						$("#cqnum").html(qid);
+
+					}
 				}
-			}
-		});
+			});
 		}
 	}
 </script>

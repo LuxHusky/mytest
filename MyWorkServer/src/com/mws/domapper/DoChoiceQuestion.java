@@ -3,26 +3,27 @@ package com.mws.domapper;
 import org.apache.ibatis.session.SqlSession;
 
 import com.mws.domain.ChoiceQuestion;
+import com.mws.domain.MyUser;
 
 public class DoChoiceQuestion {
 	//获取题目
 	public static ChoiceQuestion doGetChoiceQuestion(SqlSession sqlSession,int num){
-	/*	DoChoiceQuestion.fnum=getChoiceQuestionNum(sqlSession);
-		if(num<=fnum&&num>=1){
-			switch (Integer.parseInt(flag)) {
-		case 0:
-			++DoChoiceQuestion.num;
-			return getChoiceQuestion(sqlSession,DoChoiceQuestion.num);
-		case 1:
-			--DoChoiceQuestion.num;
-			return getChoiceQuestion(sqlSession,DoChoiceQuestion.num);
-		default:
-			break;
-		}
-	}*/
 		
 		return getChoiceQuestion(sqlSession,num);
 	}
+	
+	//判断答案是否正确
+	public static void makeSorce(String answer,int id,SqlSession sqlSession,int userid){
+		ChoiceQuestion cq=getChoiceQuestion(sqlSession,id-1);
+		MyUser myUser = DoMyUser.selectUserByID(sqlSession, userid);
+		if(cq.getRightAnswer().equals(answer)){
+			myUser.setUser_sorce(myUser.getUser_sorce()+1);
+			DoMyUser.updateSorce(sqlSession, myUser);
+		}
+	
+	}
+		
+	
 	public static ChoiceQuestion getChoiceQuestion(SqlSession sqlSession,int num){
 		String strMapperID ="com.mws.mapping.choiceMapper.getchoice";
 		ChoiceQuestion choiceQuestion=sqlSession.selectOne(strMapperID, num);

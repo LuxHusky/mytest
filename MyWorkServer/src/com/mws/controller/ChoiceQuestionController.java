@@ -18,17 +18,46 @@ import com.mws.domapper.DoChoiceQuestion;
 public class ChoiceQuestionController {
 	SqlSession sqlSession = InitSqlSession.getSqlSession();
 	@ResponseBody
-	@RequestMapping(value = "/getChoice.do")
-	public Map<String, Object> UserLogin(HttpServletRequest request,
+	@RequestMapping(value = "/getfChoice.do")public Map<String, Object> fChoice(HttpServletRequest request,
 			HttpServletResponse response){
+				
 		int flag=Integer.parseInt(request.getParameter("flag"));
 		ChoiceQuestion question=DoChoiceQuestion.doGetChoiceQuestion(sqlSession, flag);		
 		int total = DoChoiceQuestion.getChoiceQuestionNum(sqlSession);
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
 		if(question == null){
 			resultMap.put("flag",false);
 			resultMap.put("Msg","错误操作");
 		}else{
+			resultMap.put("flag",true);
+			resultMap.put("question", question);
+			resultMap.put("total", total);
+		}
+		return resultMap;
+		
+	}
+	
+	
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/getChoice.do")
+	public Map<String, Object> Choice(HttpServletRequest request,
+			HttpServletResponse response){
+		int flag=Integer.parseInt(request.getParameter("flag"));
+		String answer = request.getParameter("answer");
+		int userid = Integer.parseInt(request.getParameter("userid"));
+		ChoiceQuestion question=DoChoiceQuestion.doGetChoiceQuestion(sqlSession, flag);		
+		int total = DoChoiceQuestion.getChoiceQuestionNum(sqlSession);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		if(question == null){
+			resultMap.put("flag",false);
+			resultMap.put("Msg","错误操作");
+		}else{
+			DoChoiceQuestion.makeSorce(answer, flag, sqlSession, userid);	
 			resultMap.put("flag",true);
 			resultMap.put("question", question);
 			resultMap.put("total", total);

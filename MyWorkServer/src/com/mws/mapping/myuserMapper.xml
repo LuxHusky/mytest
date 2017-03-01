@@ -28,6 +28,11 @@
 	 	select *from
 	 	puser
 	</select>
-
-
+	
+	<update id="updateSorce"  parameterType="com.mws.domain.MyUser"  >
+			update puser
+			set user_sorce=#{user_sorce}
+			where id=#{id}
+	</update>
+	
 </mapper>

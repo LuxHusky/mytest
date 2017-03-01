@@ -2,6 +2,7 @@ package com.mws.domapper;
 
 import java.util.List;
 
+import org.apache.ibatis.jdbc.SQL;
 import org.apache.ibatis.session.SqlSession;
 
 import com.mws.domain.MyUser;
@@ -46,6 +47,13 @@ public class DoMyUser {
 		List<MyUser> myuserList = sqlSession.selectList(strMapperID);
 		sqlSession.commit();
 		return myuserList;
+	}
+	public static int updateSorce(SqlSession sqlSession,MyUser myUser){
+		String strMapperID ="com.mws.mapping.myuserMapper.updateSorce";
+		int i = sqlSession.update(strMapperID, myUser);
+		sqlSession.commit();
+		return i;
+		
 	}
 
 }

@@ -42,5 +42,13 @@ public class testuser {
 		MyUser myuser =new MyUser("account1", "password1", "name1",323,"loginType1", 111);
 		DoRegisterUser.registUser(sqlSession, myuser);
 	}
+	@Test
+	public void testUpdateSorce(){
+		SqlSession sqlSession = InitSqlSession.getSqlSession();
+		MyUser myuser=DoMyUser.selectUserByID(sqlSession, 323);
+		myuser.setUser_sorce(myuser.getUser_sorce()+1);
+		DoMyUser.updateSorce(sqlSession, myuser);
+		System.out.println(myuser.getUser_sorce());
+	}
 	
 }
