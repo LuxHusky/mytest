@@ -18,6 +18,8 @@
 
 	<mappers>
 		<!--注册userMapper.xml文件 -->
+		<mapper resource="com/mws/mapping/uncertainQueryMapper.xml"/>
+		
 		<mapper resource="com/mws/mapping/myuserMapper.xml" />
 		
 		<mapper resource="com/mws/mapping/choiceMapper.xml" />
