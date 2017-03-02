@@ -157,7 +157,7 @@ h1 {
                             <a href="#">Settings</a>
                         </li>
                         -->
-					<li><a href="#">注册</a>
+					<li><a>注册</a>
 					</li>
 				</ul>
 			</div>
@@ -190,11 +190,12 @@ h1 {
 			dataType : "json",
 			success : function(resultMap) {
 				
-				if (!resultMap.flag == true){
-					alert(resultMap.Msg);
+				if (resultMap.flag == true){
+					window.location.href = "rsuccess.jsp";
 				} 
 				else{
-					window.location.href = "login.jsp";
+					alert(resultMap.Msg);
+					
 				}
 			}
 		});

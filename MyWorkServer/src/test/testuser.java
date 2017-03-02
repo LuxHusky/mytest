@@ -15,10 +15,20 @@ import com.mws.domapper.DoRegisterUser;
 
 public class testuser {
 	@Test
+	public void testselectuserBydepart(){
+		SqlSession sqlSession = InitSqlSession.getSqlSession();
+		List<MyUser> userlist = DoMyUser.selectUserByDepartment(sqlSession,"信息中心");
+		for (MyUser myUser : userlist) {
+			System.out.println(myUser);
+		}
+	}
+	@Test
 	public void testgetuser(){
 		SqlSession sqlSession = InitSqlSession.getSqlSession();
-		MyUser user = DoMyUser.selectUserByName(sqlSession, "fdf");
-		System.out.println(user.toString() );
+		List<MyUser> user = DoMyUser.selectUserByName(sqlSession, "name");
+		for (MyUser myUser : user) {
+			System.out.println(myUser);
+		}
 	}
 	@Test
 	public void testSelectAlluser(){

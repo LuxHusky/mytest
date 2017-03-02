@@ -8,11 +8,22 @@ import org.apache.ibatis.session.SqlSession;
 import com.mws.domain.MyUser;
 
 public class DoMyUser {
+	public static MyUser selectUserByAccount(SqlSession sqlSession, String account){
+		String strMapperID ="com.mws.mapping.myuserMapper.selectUserByAccount";
+		MyUser myuser =sqlSession.selectOne(strMapperID, account);
+		return myuser;
+	}
+	public static List<MyUser> selectUserByDepartment(SqlSession sqlSession, String department){
+		String strMapperID ="com.mws.mapping.myuserMapper.selectUserByDepartment";
+		List<MyUser> myuser  =	sqlSession.selectList(strMapperID, department);
+		sqlSession.commit();
+		return myuser;
+	}
 	
-	public static MyUser selectUserByName(SqlSession sqlSession, String userName) {
+	public static List<MyUser> selectUserByName(SqlSession sqlSession, String userName) {
 
 		String strMapperID = "com.mws.mapping.myuserMapper.selectUserByName";
-		MyUser user = sqlSession.selectOne(strMapperID, userName);
+		List<MyUser> user = sqlSession.selectList(strMapperID, userName);
 		sqlSession.commit();
 		return user;
 

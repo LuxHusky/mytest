@@ -28,7 +28,7 @@ public class MyLoginController {
 		String account = request.getParameter("username");
 		String password = request.getParameter("password");
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		MyUser user = DoMyUser.selectUserByName(sqlSession,account);
+		MyUser user = DoMyUser.selectUserByAccount(sqlSession,account);
 		int total = DoChoiceQuestion.getChoiceQuestionNum(sqlSession);
 		if(user == null){
 			resultMap.put("flag", false);

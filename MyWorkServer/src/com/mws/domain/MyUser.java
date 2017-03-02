@@ -8,11 +8,31 @@ public class MyUser {
 	private int id;
 	private String loginType;
 	private int user_sorce;
+	private String department;
 
+	public MyUser(String account, String password, String name, int id,
+			String loginType, int user_sorce, String department) {
+		super();
+		this.account = account;
+		this.password = password;
+		this.name = name;
+		this.id = id;
+		this.loginType = loginType;
+		this.user_sorce = user_sorce;
+		this.department = department;
+	}
+	public String getDepartment() {
+		return department;
+	}
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+	@Override
 	public String toString() {
 		return "MyUser [account=" + account + ", password=" + password
 				+ ", name=" + name + ", id=" + id + ", loginType=" + loginType
-				+ ", user_sorce=" + user_sorce + "]";
+				+ ", user_sorce=" + user_sorce + ", department=" + department
+				+ "]";
 	}
 	public MyUser(String account, String password, String name, int id,
 			String loginType, int user_sorce) {

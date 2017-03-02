@@ -102,7 +102,7 @@ h1 {
 			<!-- 个人信息结束 -->
 			<!-- 答题开始 -->
 			<div class="col-md-9">
-				<h4>第几题</h4>
+				<h4>第<span id="cqnum">0</span>题</h4>
 				<!-- 问题信息 -->
 				<div class="test-con">
 					<p id="context">问题内容</p>
@@ -137,23 +137,16 @@ h1 {
 							style="display: none;">上一题</button>
 						<button type="button" class="btn btn-primary" id="mynext"
 							style="display: none;">下一题</button>
-						<button type="button" class="btn btn-primary" id="mysubmit">交卷</button>
+					
 					</div>
 					<!-- 可做答区域结束 -->
 					<!-- 题量显示 -->
-					<div class="number">
-						<h4>题号</h4>
-
-						<button type="button" class="btn btn-success">
-							<span id="cqnum">0</span>
-						</button>
-
-					</div>
+				
 					<!-- 交卷按钮 -->
 				</div>
 				<div class="text-right">
 					请最后确认答题完成.
-					<button type="button" class="btn btn-primary btn-lg">交卷</button>
+					<button type="button" class="btn btn-primary" id="mysubmit">交卷</button>
 				</div>
 			</div>
 			<!-- 答题结束 -->
@@ -170,7 +163,7 @@ h1 {
 
 	$(function() {
 		$("#showf").click(showf);
-		$("#myback").click(back);
+		//$("#myback").click(back);
 		$("#mynext").click(next);
 		$("#mybegin").click(mybegin);
 		$("#mysubmit").click(submit);
@@ -185,7 +178,7 @@ h1 {
 	//开始按钮
 	function mybegin() {
 		$("#mynext").show();
-		$("#myback").show();
+		//$("#myback").show();
 		$("#mybegin").hide();
 		//var time_run=setInterval("getTime()",1000);
 		var flag = 1;
@@ -250,7 +243,7 @@ h1 {
 	}
 	//提交试卷
 	function submit() {
-		window.location.href = "finish.html";
+		window.location.href = "finish.jsp";
 	}
 
 	function getTime() {
@@ -277,11 +270,11 @@ h1 {
 	}
 
 	//上一题
-	var num = 1;
+	 var num = 1;
 
-	function back() {
+	/*function back() {
 
-		if (num < 1) {
+		if (num <=1) {
 			alert("已经是第一题了");
 			$("#myback").hide();
 
@@ -312,7 +305,7 @@ h1 {
 				}
 			});
 		}
-	}
+	} */
 	//下一题
 	function next() {
 
@@ -320,7 +313,7 @@ h1 {
 			alert("已经是最后一道题了");
 			$("#mynext").hide();
 		} else {
-			$("#myback").show();
+			//$("#myback").show();
 			num++;
 			var option = $("input[name='optionsRadios']:checked").val();
 			$.ajax({

@@ -11,11 +11,14 @@
 				window.location.href = "${pageContext.request.contextPath}/user/add.jsp";
 			}
 		</script>
+		<script type="text/javascript" src="../js/cookie_util.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.cookie.js"></script>
 	</HEAD>
 	<body>
 		
 		<br>
-		<form id="Form1" name="Form1" action="search" namespace="/user">
+		<form>
 			<table cellSpacing="1" cellPadding="0" width="100%" align="center" bgColor="#f5fafe" border="0">
 				<TBODY>
 					<tr>
@@ -28,27 +31,27 @@
 							<table cellpadding="0" cellspacing="0" border="0" width="100%">
 								<tr>
 									<td height="22" align="center" bgColor="#f5fafe" class="ta_01">
-										用户姓名
+										用户姓名：
 									</td>
 									<td class="ta_01" bgColor="#ffffff">
-								
+										<input type="text">
 									</td>
 									<td height="22" align="center" bgColor="#f5fafe" class="ta_01">
-										性别：
+										所属部门：
 									</td>
 									<td class="ta_01" bgColor="#ffffff">
-										
+										<input type="text" id="">
 									</td>
 								</tr>
 								<tr>
 									<td height="22" align="center" bgColor="#f5fafe" class="ta_01">
-										学历：
+										工号：
 									</td>
 									<td class="ta_01" bgColor="#ffffff">
-										
+										<input type="text">
 									</td>
 									<td height="22" align="center" bgColor="#f5fafe" class="ta_01">
-										是否上传简历
+										上传题目
 									</td>
 									<td class="ta_01" bgColor="#ffffff">
 										
@@ -63,9 +66,7 @@
 									</td>
 									<td align="right" bgColor="#ffffff" class="ta_01"><br><br></td>
 									<td align="right" bgColor="#ffffff" class="ta_01">
-										<button type="submit" id="search" value="&#26597;&#35810;" class="button_view">
-&#26597;&#35810;
-</button>
+										<button type="submit" id="search" value="&#26597;&#35810;" class="button_view">查询</button>
 
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										<input type="reset" value="&#37325;&#32622;" class="button_view"/>
@@ -104,13 +105,13 @@
 										用户姓名
 									</td>
 									<td align="center" width="8%">
-										性别
+										所属部门
 									</td>
 									<td align="center" width="23%">
-										联系电话
+										工号
 									</td>
 									<td width="11%" align="center">
-										学历
+										考试成绩
 									</td>
 									<td width="7%" align="center">
 										编辑
@@ -128,7 +129,19 @@
 					</tr>
 				</TBODY>
 			</table>
+		</form>	
+		<script type="text/javascript">
+			$(function() {
+				$("#search").click(search);
 			
+			});
+			function search(){
+			  alert("1111");
+			}
+	
+	</script>
 	</body>
+	
+	
 </HTML>
 
