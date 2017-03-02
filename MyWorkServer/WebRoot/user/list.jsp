@@ -34,13 +34,13 @@
 										用户姓名：
 									</td>
 									<td class="ta_01" bgColor="#ffffff">
-										<input type="text">
+										<input id="myusername" type="text">
 									</td>
 									<td height="22" align="center" bgColor="#f5fafe" class="ta_01">
 										所属部门：
 									</td>
 									<td class="ta_01" bgColor="#ffffff">
-										<input type="text" id="">
+										<input type="text" id="myuserDepartment">
 									</td>
 								</tr>
 								<tr>
@@ -48,7 +48,7 @@
 										工号：
 									</td>
 									<td class="ta_01" bgColor="#ffffff">
-										<input type="text">
+										<input id="myuserId" type="text">
 									</td>
 									<td height="22" align="center" bgColor="#f5fafe" class="ta_01">
 										上传题目
@@ -136,7 +136,26 @@
 			
 			});
 			function search(){
-			  alert("1111");
+			var myusername =$("#myusername").val().trim();
+			var myuserDepartment=$("#myuserDepartment").val().trim();
+			var	myuserId=$("#myuserId").val().trim();
+			$.ajax({
+
+					url : "http://localhost:8080/MyWorkServer/.do",
+					type : "post",
+					data : {
+						"myusername" : myusername,
+						"myuserDepartment" : myuserDepartment,
+						"myuserId":myuserId
+					},
+					dataType : "json",
+					success : function(resultMap) {
+
+					}
+				});
+			  
+			  
+			  
 			}
 	
 	</script>
