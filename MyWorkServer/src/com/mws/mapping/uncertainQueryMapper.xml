@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mws.mapping.uncertainQueryMapper">
+	<select id="uncertainquery" parameterType="map"
+		resultType="com.mws.domain.MyUser">
+		select *from puser
+		<where>
+			<if test="id!= null">
+			  and id = #{id}
+			</if>
+			<if test="name!=null">
+			  and name like '%${name}%'
+			</if>
+			<if test="department!= null">
+				and department like '%${department}'
+			</if>
+		</where>
+
+	</select>
+
+</mapper>
