@@ -11,8 +11,8 @@ public class ChoiceQuestion {
 	public int getQid() {
 		return qid;
 	}
-	public void setQid(int qid) {
-		this.qid = qid;
+	public void setQid(int cellStr) {
+		this.qid = cellStr;
 	}
 	public String getQcontext() {
 		return qcontext;

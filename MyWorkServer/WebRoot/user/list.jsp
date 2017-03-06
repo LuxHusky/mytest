@@ -212,24 +212,22 @@
     		var fd = new FormData(document.getElementById("fileUpload"));
 			$.ajax({
 				type : "post",
-				url : "http://localhost:8080/shanChuanTest/insertAll.gu",
+				url : "http://localhost:8080/MyWorkServer/upChoice.do",
 				dataType : "json",
 				data : fd,
 				processData: false,  // 告诉jQuery不要去处理发送的数据
 				contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
 
-				success : function(result) {
+				success : function(resultMap) {
 					
-					for(var i=0;i<result.length;i++){
-						var result1 = result[0];
-						if(result1.success==true){
-							alert(result1.msg);
+						if(resultMap.flag == true){
+							alert(resultMap.Msg);
 							$("#xinxi3").hide();
 							initList();
 						}else{
-							alert(result1.msg);
+							alert(resultMap.Msg);
 						}
-					}
+					
 					
 				},
 				error: function() {

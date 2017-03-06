@@ -36,5 +36,12 @@ public class DoChoiceQuestion {
 		return num;
 		
 	}
+	public static int insertChoiceQuestion(SqlSession sqlSession,ChoiceQuestion choiceQuestion){
+		String strMapperID="com.mws.mapping.choiceMapper.insertChoiceQuestion";
+		int num = sqlSession.insert(strMapperID, choiceQuestion);
+		sqlSession.commit();
+		return num;
+		
+	}
 	
 }

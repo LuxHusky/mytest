@@ -20,4 +20,12 @@ public class testChoice {
 		int num = DoChoiceQuestion.getChoiceQuestionNum(sqlSession);
 		System.out.println(num);
 	}
+	@Test
+	public void testinsert(){
+		SqlSession sqlSession = InitSqlSession.getSqlSession();
+		ChoiceQuestion choiceQuestion = new ChoiceQuestion(6, "q", "A","B", "C", "D", "right");
+		int num = DoChoiceQuestion.insertChoiceQuestion(sqlSession, choiceQuestion);
+		
+	}
+	
 }

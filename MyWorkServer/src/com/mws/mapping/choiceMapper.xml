@@ -7,9 +7,28 @@
     where qid =#{qid}
 
 </select>
+
 <select id="getchoicenum" resultType="Integer">
 	select count(*) from 
 	choicequestion
 </select>
+<update id="updateChoiceQuestion" parameterType="com.mws.domain.ChoiceQuestion">
+			update choicequestion
+			qid =#{qid}
+			qcontext=#{qcontext},
+			answerA=#{answerA},
+			answerB=#{answerB},
+			answerC=#{answerC},
+			answerD=#{answerD},
+			rightAnswer=#{rightAnswer}
+
+</update>
+<insert id="insertChoiceQuestion" parameterType="com.mws.domain.ChoiceQuestion">
+			insert into choicequestion
+			(qid,qcontext,answerA,answerB,answerC,answerD,rightAnswer)
+			values(#{qid},#{qcontext},#{answerA},#{answerB},#{answerC},#{answerD},#{rightAnswer})
+			
+
+</insert>
 
 </mapper>
