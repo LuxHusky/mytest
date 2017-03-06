@@ -91,7 +91,7 @@ h1 {
 				}
 				$.ajax({
 
-					url : "http://localhost:8080/MyWorkServer/myUserLogin.do",
+					url : "http://localhost:8080/c/myUserLogin.do",
 					type : "post",
 					data : {
 						"username" : name,

@@ -1,3 +1,4 @@
+
 <%@ page language="java" pageEncoding="UTF-8"%>
 
 <HTML>
@@ -6,19 +7,34 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link href="${pageContext.request.contextPath}/css/Style.css" rel="stylesheet" type="text/css" />
 		<script language="javascript" src="${pageContext.request.contextPath}/js/public.js"></script>
-		<script type="text/javascript">
-			function addUser(){
-				window.location.href = "${pageContext.request.contextPath}/user/add.jsp";
-			}
-		</script>
 		<script type="text/javascript" src="../js/cookie_util.js"></script>
 		<script type="text/javascript" src="../js/jquery.min.js"></script>
 		<script type="text/javascript" src="../js/jquery.cookie.js"></script>
 	</HEAD>
+	<style>
+		.show {
+
+				 position:absolute;
+				
+				 left:338px;
+				
+				 top:91px;
+				
+				
+				
+				 z-index:1;
+				
+				 border:solid #7A7A7A 4px; 
+				 
+				 background-color: #ccc;
+				 padding: 20px;
+				
+				}
+</style>
 	<body>
 		
 		<br>
-		<form>
+		
 			<table cellSpacing="1" cellPadding="0" width="100%" align="center" bgColor="#f5fafe" border="0">
 				<TBODY>
 					<tr>
@@ -54,7 +70,7 @@
 										上传题目
 									</td>
 									<td class="ta_01" bgColor="#ffffff">
-										
+										<button id="addAll" height="22" align="center">上传</button>
 									</td>
 								</tr>
 								<tr>
@@ -84,7 +100,7 @@
 					</tr>
 					<tr>
 						<td class="ta_01" align="right">
-							<button type="button" id="add" name="add" value="添加" class="button_add" onclick="addUser()">
+							<button type="button" id="add" name="add" value="添加" class="button_add">
 &#28155;&#21152;
 </button>
 
@@ -95,10 +111,10 @@
 							<table cellspacing="0" cellpadding="1" rules="all"
 								bordercolor="gray" border="1" id="DataGrid1"
 								style="BORDER-RIGHT: gray 1px solid; BORDER-TOP: gray 1px solid; BORDER-LEFT: gray 1px solid; WIDTH: 100%; WORD-BREAK: break-all; BORDER-BOTTOM: gray 1px solid; BORDER-COLLAPSE: collapse; BACKGROUND-COLOR: #f5fafe; WORD-WRAP: break-word">
-								<tr
+								<tr 
 									style="FONT-WEIGHT: bold; FONT-SIZE: 12pt; HEIGHT: 25px; BACKGROUND-COLOR: #afd1f3">
 
-									<td align="center" width="18%">
+									<td  align="center" width="18%">
 										登录名
 									</td>
 									<td align="center" width="17%">
@@ -123,25 +139,41 @@
 										删除
 									</td>
 								</tr>
-									
+								<tbody id="mybody">
+						
+								</tbody>
 							</table>
 						</td>
 					</tr>
 				</TBODY>
 			</table>
-		</form>	
+			<div id="xinxi3" class="show" style="display: none;">
+    		<form id="fileUpload" enctype="multipart/form-data"  name="fileUpload">
+		<input type="file" id="file" name="file">
+		<input type="hidden" id="studentId">
+		</form>
+    		<div style="padding: 20px;"><button onclick="piliang()">提交</button><button onclick="back3();">取消</button></div>
+    	</div>
+			
 		<script type="text/javascript">
 			$(function() {
 				$("#search").click(search);
-			
+				$("#add").click(add);
+				$("#addAll").click(addAll);
+				
 			});
+			//增加用户
+			function add(){
+			$("#DataGrid1").append('<tr><td align="center" width="18%">1</td></tr>');	
+			}
+			//查询用户
 			function search(){
 			var myusername =$("#myusername").val().trim();
 			var myuserDepartment=$("#myuserDepartment").val().trim();
 			var	myuserId=$("#myuserId").val().trim();
 			$.ajax({
 
-					url : "http://localhost:8080/MyWorkServer/.do",
+					url : "http://localhost:8080/MyWorkServer/admin.do",
 					type : "post",
 					data : {
 						"myusername" : myusername,
@@ -149,14 +181,66 @@
 						"myuserId":myuserId
 					},
 					dataType : "json",
-					success : function(resultMap) {
-
+					success : function(resulMap) {
+						if(resulMap.flag == true){
+							var tr="";
+							var obj=resulMap.obj;
+							$("#DataGrid1 #mybody").empty();
+							for(var i= 0;i<obj.length;i++){
+							tr+=("<tr>"
+							+"<td align='center' width='18%'>"+obj[i].account+"</td>"
+							+"<td align='center' width='17%'>"+obj[i].name+"</td>"
+							+"<td align='center' width='8%'>"+obj[i].department+"</td>"
+							+"<td align='center' width='23%'>"+obj[i].id+"</td>"
+							+"<td align='center' width='11%'>"+obj[i].user_sorce+"</td>"
+							+"<td align='center' width='7%'>"+obj[i].name+"</td>"
+							+"<td align='center' width='7%'>"+obj[i].name+"</td>"
+							+"<td align='center' width='7%'>"+obj[i].name+"</td>"							
+							+"</tr>");
+										
+							}
+							$("#DataGrid1 #mybody").append(tr);	
+						}
 					}
 				});
-			  
-			  
-			  
 			}
+			//加入试题
+			function addAll(){
+    		$("#xinxi3").show();
+    	}
+    	function piliang(){
+    		var fd = new FormData(document.getElementById("fileUpload"));
+			$.ajax({
+				type : "post",
+				url : "http://localhost:8080/shanChuanTest/insertAll.gu",
+				dataType : "json",
+				data : fd,
+				processData: false,  // 告诉jQuery不要去处理发送的数据
+				contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
+
+				success : function(result) {
+					
+					for(var i=0;i<result.length;i++){
+						var result1 = result[0];
+						if(result1.success==true){
+							alert(result1.msg);
+							$("#xinxi3").hide();
+							initList();
+						}else{
+							alert(result1.msg);
+						}
+					}
+					
+				},
+				error: function() {
+					
+					return false;
+				}
+			});
+    	}
+    	function back3(){
+    		$("#xinxi3").hide();
+    	}
 	
 	</script>
 	</body>

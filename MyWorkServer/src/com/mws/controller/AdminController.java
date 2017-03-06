@@ -26,19 +26,24 @@ public class AdminController {
 		String myusername = request.getParameter("myusername");
 		String myuserDepartment = request.getParameter("myuserDepartment");
 		String myuserId = request.getParameter("myuserId");
-		Map<String, Object> reqMap = new HashMap<String, Object>();
-		Map<String,Object> repMap = new HashMap<String, Object>();
+		HashMap<String, Object> reqMap = new HashMap<String, Object>();
+		HashMap<String,Object> resulMap = new HashMap<String, Object>();
 		reqMap.put("name", myusername);
 		reqMap.put("department", myuserDepartment);
 		reqMap.put("id", myuserId);
 		List<MyUser> userlist = Doadmin.uncertainQuery(sqlSession,
 				(HashMap<String, Object>) reqMap);
 		if(userlist.size()<0){
-			repMap.put("flag",false);
-			repMap.put("Msg", "没有找到符合条件的对象");
+			resulMap.put("flag",false);
+			resulMap.put("Msg", "没有找到符合条件的对象");
+	//找到结果
+		}else{
+			resulMap.put("flag", true);
+			resulMap.put("Msg", "找到结果");
+			resulMap.put("obj",userlist);
 		}
-		//找到结果
-		return null;
+		
+		return resulMap;
 
 	}
 }

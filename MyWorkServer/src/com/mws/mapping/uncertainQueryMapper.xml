@@ -3,18 +3,18 @@
 <mapper namespace="com.mws.mapping.uncertainQueryMapper">
 	<select id="uncertainquery" parameterType="map"
 		resultType="com.mws.domain.MyUser">
-		select *from puser
-		<where>
-			<if test="id!= null">
+		select *from puser where 1=1 
+		
+			<if test="id!=''">
 			  and id = #{id}
 			</if>
-			<if test="name!=null">
+			<if test="name!=''">
 			  and name like '%${name}%'
 			</if>
-			<if test="department!= null">
-				and department like '%${department}'
+			<if test="department!=''">
+				and department like '%${department}%'
 			</if>
-		</where>
+	
 
 	</select>
 

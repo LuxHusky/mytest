@@ -16,9 +16,9 @@ public class testadmin {
 	public void testadmin(){
 		SqlSession sqlSession = InitSqlSession.getSqlSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("id",3456);
-		//map.put("department","信息中心");
-		map.put("name","name");
+		map.put("id","");
+		map.put("department","");
+		map.put("name","");
 		
 		List<MyUser> myuser =Doadmin.uncertainQuery(sqlSession, map);
 		for (MyUser myUser2 : myuser) {
