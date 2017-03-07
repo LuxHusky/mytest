@@ -170,33 +170,6 @@ public class ChoiceQuestionController {
 				
 			}
 		
-			
-				
-		/*		String sql ="select *from question where qcontext=?";
-				String sql1 = "insert into question(qid,qcontext,answerA,answerB,answerC,answerD,rightAnswer) value(?,?,?,?,?,?,?)";
-				conn = DBUtil.getConnection();
-				prep = conn.prepareStatement(sql);
-				prep.setString(1,item.getQcontext());
-				rst = prep.executeQuery();
-				if(!rst.next()){
-					conn = DBUtil.getConnection();
-					prep = conn.prepareStatement(sql1);
-					prep.setString(1, item.getQid());
-					prep.setString(2,item.getQcontext());
-					prep.setString(3,item.getAnswerA());
-					prep.setString(4,item.getAnswerB());
-					prep.setString(5,item.getAnswerC());
-					prep.setString(6,item.getAnswerD());
-					prep.setString(7,item.getRightAnswer());
-					int j = prep.executeUpdate();
-					num += j;
-				}
-						
-					
-				}
-				
-			*/
-		
 			if(num == 0){
 				resultMap.put("flag",false);
 				resultMap.put("Msg","导入失败");
@@ -211,10 +184,6 @@ public class ChoiceQuestionController {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-	
-		
-		
 				return resultMap ;
 				
 		}
