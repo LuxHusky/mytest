@@ -156,15 +156,35 @@
     	</div>
 			
 		<script type="text/javascript">
+		
 			$(function() {
 				$("#search").click(search);
 				$("#add").click(add);
 				$("#addAll").click(addAll);
-				
+			
 			});
 			//增加用户
 			function add(){
-			$("#DataGrid1").append('<tr><td align="center" width="18%">1</td></tr>');	
+			  alert("1111");	
+			}
+			//编辑用户
+			function edit(username) {
+				$.ajax({
+
+					url : "http://localhost:8080/MyWorkServer/insertUser.do",
+					type : "post",
+					data : {
+						"username" :username,
+						
+					},
+					dataType : "json",
+					success : function(resultMap) {
+					}
+					});
+			}
+			//查看用户
+			function view() {
+				alert("2323");
 			}
 			//查询用户
 			function search(){
@@ -184,18 +204,21 @@
 					success : function(resulMap) {
 						if(resulMap.flag == true){
 							var tr="";
+							
 							var obj=resulMap.obj;
 							$("#DataGrid1 #mybody").empty();
 							for(var i= 0;i<obj.length;i++){
+							
 							tr+=("<tr>"
 							+"<td align='center' width='18%'>"+obj[i].account+"</td>"
 							+"<td align='center' width='17%'>"+obj[i].name+"</td>"
 							+"<td align='center' width='8%'>"+obj[i].department+"</td>"
 							+"<td align='center' width='23%'>"+obj[i].id+"</td>"
 							+"<td align='center' width='11%'>"+obj[i].user_sorce+"</td>"
-							+"<td align='center' width='7%'>"+obj[i].name+"</td>"
-							+"<td align='center' width='7%'>"+obj[i].name+"</td>"
-							+"<td align='center' width='7%'>"+obj[i].name+"</td>"							
+							+"<td align='center' width='7%'>"
+							+"<a onclick=edit("+obj[i].name+")><img src='../images/i_edit.gif' border='0' style='CURSOR: hand'></a></td>"
+							+"<td align='center' width='7%'>"+"<a id='view' onclick='view()'>"+"<img src='../images/button_view.gif' border='0' style='CURSOR: hand'>"+"</a>"+"</td>"
+							+"<td align='center' width='7%'>"+"<img src='../images/i_del.gif' width='16' height='16' border='0' style='CURSOR: hand'>"+"</td>"							
 							+"</tr>");
 										
 							}
@@ -208,6 +231,7 @@
 			function addAll(){
     		$("#xinxi3").show();
     	}
+    	
     	function piliang(){
     		var fd = new FormData(document.getElementById("fileUpload"));
 			$.ajax({
@@ -223,7 +247,7 @@
 						if(resultMap.flag == true){
 							alert(resultMap.Msg);
 							$("#xinxi3").hide();
-							initList();
+							
 						}else{
 							alert(resultMap.Msg);
 						}
@@ -231,15 +255,14 @@
 					
 				},
 				error: function() {
-					
 					return false;
 				}
 			});
     	}
+    	
     	function back3(){
     		$("#xinxi3").hide();
     	}
-	
 	</script>
 	</body>
 	

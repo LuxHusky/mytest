@@ -31,23 +31,8 @@ public class UserController {
 	@RequestMapping(value = "/insertUser.do")
 	public Map<String, Object> InsertUser(HttpServletRequest request,
 			HttpServletResponse response) {
-
-		long userID = Long.parseLong(request.getParameter("userID"));
-		int userSysID = Integer.parseInt(request.getParameter("userSysID"));
-		String userName = request.getParameter("userName");
-		String userPassWord = request.getParameter("userPassWord");
-		
-		User user = new User(userID, userSysID, userName, userPassWord);
-		int i = DoUser.insertUser(sqlSession, user);
-
-		Map<String, Object> usersInsertMap = new HashMap<String, Object>();
-
-		if (i == 1)
-			usersInsertMap.put("isSuccess", true);
-		else
-			usersInsertMap.put("isSuccess", false);
-
-		return usersInsertMap;
+		System.out.println(request.getParameter("username"));
+				return null;
 
 	}
 

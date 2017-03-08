@@ -66,5 +66,12 @@ public class DoMyUser {
 		return i;
 		
 	}
+	public static int unceupdate(SqlSession sqlSession,MyUser myUser){
+		String strMapperID ="com.mws.mapping.myuserMapper.uncerUpdate";
+		int i = sqlSession.update(strMapperID, myUser);
+		sqlSession.commit();
+		return i;
+		
+	}
 
 }

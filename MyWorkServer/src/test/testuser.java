@@ -60,5 +60,15 @@ public class testuser {
 		DoMyUser.updateSorce(sqlSession, myuser);
 		System.out.println(myuser.getUser_sorce());
 	}
+	@Test
+	public void testcnuUpdateSorce(){
+		SqlSession sqlSession = InitSqlSession.getSqlSession();
+		MyUser myUser = new MyUser(null,null,"",23,
+				null, 90, null);
+		int i=DoMyUser.unceupdate(sqlSession, myUser);
+		sqlSession.commit();
+	}
+	
+	
 	
 }

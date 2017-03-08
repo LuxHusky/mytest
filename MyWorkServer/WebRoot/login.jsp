@@ -5,6 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <title>山船考试系统登录界面</title>
+<link rel="stylesheet" type="text/css" href="css/zeroModal.css" />
+  
+<script src="js/zeroModal.js"></script>
 <link rel="stylesheet" href="css/lrtk.css">
 <script type="text/javascript" src="js/cookie_util.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -86,12 +89,12 @@ h1 {
 					return;
 				}
 				if (pwd == "") {
-					alert("密码不能为空");
+					zeroModal.alert('请选择数据进行操作!');
 					return;
 				}
 				$.ajax({
 
-					url : "http://localhost:8080/c/myUserLogin.do",
+					url : "http://localhost:8080/MyWorkServer/myUserLogin.do",
 					type : "post",
 					data : {
 						"username" : name,
